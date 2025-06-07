@@ -8,7 +8,7 @@ from app.views.calculators.sgpa import SGPACalculator
 from app.views.calculators.cgpa import CGPACalculator
 from app.views.calculators.percentage import PercentageCalculator
 from app.views.calculators.converter import GradeConverter
-# from app.views.blog.viewer import BlogViewer
+from app.views.blog.viewer import BlogViewer
 # from app.views.blog.manager import BlogManager
 # from app.views.about import AboutSection
 from app.utils.style import configure_styles
@@ -247,10 +247,10 @@ class DashboardWindow:
         self.clear_content()
         self.current_view = GradeConverter(self.content_frame)
 
+    # In dashboard.py
     def show_blogs(self):
         self.clear_content()
-        tk.Label(self.content_frame, text="Blog Viewer is not implemented yet.", font=("Helvetica", 14),
-                 bg="#f0f8ff").pack(expand=True)
+        self.current_view = BlogViewer(self.content_frame, self.user)
 
     def show_blog_manager(self):
         self.clear_content()
