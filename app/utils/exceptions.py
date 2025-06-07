@@ -1,3 +1,7 @@
+class ConversionError(Exception):
+    """Custom exception for conversion errors."""
+    pass
+
 class AuthenticationError(Exception):
     """Custom exception for authentication failures"""
     pass
