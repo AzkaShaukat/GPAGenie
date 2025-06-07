@@ -7,7 +7,7 @@ from app.views.calculators.sgpa import SGPACalculator
 # import these classes for the corresponding features to work.
 from app.views.calculators.cgpa import CGPACalculator
 from app.views.calculators.percentage import PercentageCalculator
-# from app.views.calculators.converter import GradeConverter
+from app.views.calculators.converter import GradeConverter
 # from app.views.blog.viewer import BlogViewer
 # from app.views.blog.manager import BlogManager
 # from app.views.about import AboutSection
@@ -245,8 +245,7 @@ class DashboardWindow:
 
     def show_converter(self):
         self.clear_content()
-        tk.Label(self.content_frame, text="Grade Converter view is not implemented yet.", font=("Helvetica", 14),
-                 bg="#f0f8ff").pack(expand=True)
+        self.current_view = GradeConverter(self.content_frame)
 
     def show_blogs(self):
         self.clear_content()

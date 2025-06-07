@@ -92,8 +92,9 @@ class PercentageCalculator:
 
         sections = [
             ("How Percentage is Calculated",
-             "To calculate your percentage you first must know your total and obtained marks. Then your percentage would be calculated by following formulae\n\n"
-             "                                     Percentage = (Obtained Marks ÷ Total Marks) × 100\n\n"
+             "To calculate your percentage you first must know your total and obtained marks. Then your percentage would be \n"
+             "calculated by following formulae:\n\n"
+             "                       Percentage = (Obtained Marks ÷ Total Marks) × 100\n\n"
              "\n"
              "Example: If you scored 75 out of 100:\n"
              "(75 ÷ 100) × 100 = 75%"),
