@@ -6,7 +6,7 @@ from app.views.calculators.sgpa import SGPACalculator
 # Note: The following imports are placeholders. You will need to create and
 # import these classes for the corresponding features to work.
 from app.views.calculators.cgpa import CGPACalculator
-# from app.views.calculators.percentage import PercentageCalculator
+from app.views.calculators.percentage import PercentageCalculator
 # from app.views.calculators.converter import GradeConverter
 # from app.views.blog.viewer import BlogViewer
 # from app.views.blog.manager import BlogManager
@@ -238,10 +238,10 @@ class DashboardWindow:
         self.clear_content()
         self.current_view = CGPACalculator(self.content_frame, self.user)
 
+
     def show_percentage(self):
         self.clear_content()
-        tk.Label(self.content_frame, text="Percentage Calculator view is not implemented yet.", font=("Helvetica", 14),
-                 bg="#f0f8ff").pack(expand=True)
+        self.current_view = PercentageCalculator(self.content_frame, self.user)
 
     def show_converter(self):
         self.clear_content()
