@@ -1,3 +1,7 @@
+class BlogError(Exception):
+    """Custom exception for conversion errors."""
+    pass
+
 class ConversionError(Exception):
     """Custom exception for conversion errors."""
     pass
