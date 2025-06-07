@@ -10,7 +10,7 @@ class GPAGenieApp:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("GPAGenie - Academic Performance Tracker")
-        self.root.geometry("900x600")
+        self.root.geometry("1100x700")
 
         # Configure styles
         configure_styles()
@@ -38,7 +38,7 @@ class GPAGenieApp:
         # Clear current window
         for widget in self.root.winfo_children():
             widget.destroy()
-        # Show dashboard
+        # Show dashboard with auth_service reference
         DashboardWindow(self.root, user, self.auth_service)
 
     def run(self):

@@ -14,12 +14,37 @@ def configure_styles():
     accent_color = "#ffa500"  # Orange
     background_color = "#f0f8ff"  # Alice blue
     text_color = "#333333"
+    header_color = "#4b0082"
+    header_text = "white"
 
     # Configure main frame style
     style.configure(
         'TFrame',
         background=background_color
     )
+
+    style.configure(
+        'Header.TButton',
+        font=('Helvetica', 10, 'bold'),
+        background=header_color,
+        foreground=header_text,
+        borderwidth=0,
+        padding=5
+    )
+
+    style.map(
+        'Header.TButton',
+        background=[('active', accent_color), ('disabled', '#cccccc')],
+        foreground=[('disabled', '#666666')]
+    )
+    # Add checkbox style
+    style.configure('TCheckbutton',
+                   background='#f0f8ff',
+                   foreground='#4b0082',
+                   font=('Helvetica', 10))
+    style.map('TCheckbutton',
+              background=[('active', '#f0f8ff')],
+              foreground=[('active', '#4b0082')])
 
     # Configure label style
     style.configure(
