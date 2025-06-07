@@ -29,7 +29,7 @@ def configure_styles():
         background=header_color,
         foreground=header_text,
         borderwidth=0,
-        padding=5
+        padding=0
     )
 
     style.map(

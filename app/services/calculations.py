@@ -48,3 +48,28 @@ def calculate_sgpa(subjects: List[Dict]) -> Tuple[float, List[Tuple[Dict, float]
 
     sgpa = total_grade_points / total_credits
     return (sgpa, results)
+
+
+def calculate_cgpa(semesters_data):
+    """
+    Calculate CGPA from list of semesters
+    Returns: (cgpa, list of (semester, quality_points))
+    """
+    if not semesters_data:
+        raise ValueError("At least one semester is required")
+
+    total_quality_points = 0.0
+    total_credits = 0
+    semester_results = []
+
+    for sem in semesters_data:
+        quality_points = sem['sgpa'] * sem['credits']
+        total_quality_points += quality_points
+        total_credits += sem['credits']
+        semester_results.append((sem, quality_points))
+
+    if total_credits == 0:
+        raise ValueError("Total credits cannot be zero")
+
+    cgpa = total_quality_points / total_credits
+    return (cgpa, semester_results)

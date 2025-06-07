@@ -37,3 +37,25 @@ class TestSGPACalculations:
             subjects = [{"subject": "Test", "grade": grade, "credits": 1}]
             sgpa, _ = calculate_sgpa(subjects)
             assert sgpa == GRADE_POINTS[grade]
+
+
+import pytest
+from app.services.calculations import calculate_cgpa
+
+class TestCGPACalculations:
+    def test_basic_cgpa(self):
+        semesters = [
+            {'name': 'Sem 1', 'sgpa': 3.5, 'credits': 15},
+            {'name': 'Sem 2', 'sgpa': 3.8, 'credits': 18}
+        ]
+        cgpa, results = calculate_cgpa(semesters)
+        assert cgpa == pytest.approx((3.5*15 + 3.8*18)/(15+18))
+        assert len(results) == 2
+
+    def test_empty_semesters(self):
+        with pytest.raises(ValueError):
+            calculate_cgpa([])
+
+    def test_zero_credits(self):
+        with pytest.raises(ValueError):
+            calculate_cgpa([{'name': 'Sem 1', 'sgpa': 3.5, 'credits': 0}])
