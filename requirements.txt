@@ -1,0 +1,15 @@
+# Core Dependencies
+Django==4.2.7
+mysql-connector-python==8.1.0
+Pillow==10.0.1
+python-dotenv==1.0.0
+
+# Development
+pytest==7.4.2
+pytest-mock==3.11.1
+flake8==6.1.0
+black==23.9.1
+
+# Documentation
+mkdocs==1.5.2
+mkdocs-material==9.2.1

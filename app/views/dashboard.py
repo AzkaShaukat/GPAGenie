@@ -9,7 +9,7 @@ from app.views.calculators.cgpa import CGPACalculator
 from app.views.calculators.percentage import PercentageCalculator
 from app.views.calculators.converter import GradeConverter
 from app.views.blog.viewer import BlogViewer
-# from app.views.blog.manager import BlogManager
+from app.views.blog.manager import BlogManager
 # from app.views.about import AboutSection
 from app.utils.style import configure_styles
 
@@ -124,7 +124,7 @@ class DashboardWindow:
         if self.user.role == "admin":
             menu_buttons_data.append(("Manage", self.show_blog_manager))
 
-        menu_buttons_data.append(("About", self.show_about))
+        # menu_buttons_data.append(("About", self.show_about))
 
         for text, command in menu_buttons_data:
             btn = ttk.Button(left_menu, text=text, command=command, style="Header.TButton")
@@ -254,8 +254,7 @@ class DashboardWindow:
 
     def show_blog_manager(self):
         self.clear_content()
-        tk.Label(self.content_frame, text="Blog Manager is not implemented yet.", font=("Helvetica", 14),
-                 bg="#f0f8ff").pack(expand=True)
+        self.current_view = BlogManager(self.content_frame, self.user)
 
     def show_about(self):
         self.clear_content()
