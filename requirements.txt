@@ -1,15 +1,28 @@
-# Core Dependencies
-Django==4.2.7
-mysql-connector-python==8.1.0
-Pillow==10.0.1
-python-dotenv==1.0.0
+# Core Requirements
+mysql-connector-python==8.0.33
+pymysql==1.0.2
+SQLAlchemy==1.4.35
 
-# Development
-pytest==7.4.2
-pytest-mock==3.11.1
-flake8==6.1.0
-black==23.9.1
+# Testing & CI/CD
+pytest==7.1.2
+pytest-cov==3.0.0
+pytest-mock==3.7.0
+coverage==6.3.2
 
-# Documentation
-mkdocs==1.5.2
-mkdocs-material==9.2.1
+# Web Framework (if applicable)
+Flask==2.0.3
+Django==4.0.3
+
+# Data Processing
+numpy==1.22.3
+pandas==1.4.2
+
+# Environment & Packaging
+python-dotenv==0.19.2
+setuptools==59.6.0
+wheel==0.37.1
+
+# Development Tools
+black==22.3.0
+flake8==4.0.1
+autopep8==1.6.0

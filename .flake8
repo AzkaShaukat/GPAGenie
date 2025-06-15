@@ -1,0 +1,4 @@
+[flake8]
+max-line-length = 100
+ignore = E203, E266, E501, F401, E302, E303, E301, W292, F841, E128, E122, F811, F541, W291, W391, E701, E261
+exclude = tests/, migrations/, __pycache__/
