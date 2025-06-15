@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:0.0.3  # ← Match your MySQL version
+        image: mysql:10.4.32-MariaDB  # ← Match your MySQL version
         env:
           MYSQL_ROOT_PASSWORD: ""
           MYSQL_DATABASE: gpa_genie1_test  # ← Your test DB name
