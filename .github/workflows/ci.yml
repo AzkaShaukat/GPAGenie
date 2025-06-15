@@ -11,13 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:9.3.0  # ← Match your MySQL version
+        image: mysql:8.0  # ← Changed from broken version
         env:
           MYSQL_ROOT_PASSWORD: ""
-          MYSQL_DATABASE: gpa_genie1_test  # ← Your test DB name
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s
+          MYSQL_DATABASE: gpa_genie1_test
+        ports: [ 3306:3306 ]
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+        name: Wait for MySQL
+        run: sleep 15  # Give MySQL time to initialize
 
     steps:
     - uses: actions/checkout@v4
