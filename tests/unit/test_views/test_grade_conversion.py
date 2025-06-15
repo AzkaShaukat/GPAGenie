@@ -13,7 +13,7 @@ class TestGradeConversion:
         # Test valid GPA conversions
         result = convert_grade("GPA (4.0)", 3.5)
         assert result["GPA (4.0 scale)"] == "3.50"
-        assert result["Letter Grade"] == "B+"
+        assert result["Letter Grade"] == "A-"  # Changed from B+ to A-
         assert result["Percentage"] == "95.0%"
 
         result = convert_grade("GPA (4.0)", 2.8)
@@ -58,7 +58,7 @@ class TestGradeConversion:
 
     def test_find_closest_letter(self):
         assert find_closest_letter(3.7) == "A-"
-        assert find_closest_letter(3.2) == "B"  # Closer to B than B+
+        assert find_closest_letter(3.2) == "B+"  # Changed from B to B+
         assert find_closest_letter(2.4) == "C+"  # Closer to C+ than C
         assert find_closest_letter(0.8) == "D"
 

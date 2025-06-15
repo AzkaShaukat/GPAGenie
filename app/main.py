@@ -1,5 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
+
+import push
+from django.db.transaction import commit
+from pip._internal.vcs import git
+
 from app.views.auth.login import LoginWindow
 from app.utils.style import configure_styles
 from app.services.auth import AuthService

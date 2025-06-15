@@ -1,0 +1,49 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main, dev ]  # ← Add your working branches
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:9.3.0  # ← Match your MySQL version
+        env:
+          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_DATABASE: gpa_genie1_test  # ← Your test DB name
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'  # ← Match your Python version
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+        
+        # Add any MySQL driver you're using:
+        pip install mysql-connector-python  # or pymysql
+
+    - name: Run tests
+      env:
+        DB_HOST: 127.0.0.1
+        DB_USER: root
+        DB_PASSWORD: ""
+        DB_NAME: gpa_genie1_test  # ← Your test DB name
+      run: |
+        pytest tests/ --cov=app --cov-report=xml
+
+    - name: Upload coverage
+      if: success()  # Only run if tests pass
+      uses: codecov/codecov-action@v3

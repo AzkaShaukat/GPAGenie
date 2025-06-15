@@ -179,16 +179,60 @@ def add_like(post_id, user_id):
     except mysql.connector.Error as err:
         raise BlogError(f"Database error: {err}")
 
+
 def get_post_comments(post_id):
     """Get comments for a blog post"""
     try:
-        return []
+        with Database() as conn:
+            if conn is None:
+                raise BlogError("Could not establish a database connection.")
+
+            cursor = conn.cursor(dictionary=True)
+
+            query = """
+                SELECT c.*, u.full_name as author_name
+                FROM blog_comments c
+                LEFT JOIN users u ON c.user_id = u.user_id
+                WHERE c.post_id = %s
+                ORDER BY c.created_at DESC
+            """
+
+            cursor.execute(query, (post_id,))
+            return cursor.fetchall()
+
     except mysql.connector.Error as err:
         raise BlogError(f"Database error: {err}")
+
 
 def add_comment(post_id, user_id, author_name, content):
     """Add a new comment to a blog post"""
     try:
-        return {}
+        with Database() as conn:
+            if conn is None:
+                raise BlogError("Could not establish a database connection.")
+
+            cursor = conn.cursor(dictionary=True)
+
+            query = """
+                INSERT INTO blog_comments 
+                (post_id, user_id, author_name, content, created_at)
+                VALUES (%s, %s, %s, %s, NOW())
+            """
+            values = (post_id, user_id, author_name, content)
+
+            cursor.execute(query, values)
+            conn.commit()
+
+            # Get the newly inserted comment
+            cursor.execute("""
+                SELECT c.*, u.full_name as author_name
+                FROM blog_comments c
+                LEFT JOIN users u ON c.user_id = u.user_id
+                WHERE c.comment_id = %s
+            """, (cursor.lastrowid,))
+
+            new_comment = cursor.fetchone()
+            return new_comment
+
     except mysql.connector.Error as err:
         raise BlogError(f"Database error: {err}")
