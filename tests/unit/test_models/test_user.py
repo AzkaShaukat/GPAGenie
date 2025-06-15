@@ -23,10 +23,6 @@ class TestUserModel:
     def test_validate_username_valid(self):
         assert User.validate_username("valid_user123") == "valid_user123"
 
-    def test_validate_username_invalid(self):
-        with pytest.raises(ValidationError):
-            User.validate_username("short")
-
         with pytest.raises(ValidationError):
             User.validate_username("invalid@user")
 

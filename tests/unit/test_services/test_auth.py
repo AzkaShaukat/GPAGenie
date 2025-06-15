@@ -83,7 +83,10 @@ class TestAuthService:
 
     def test_register_existing_username(self, mock_db):
         cursor = mock_db.cursor.return_value
-        cursor.fetchall.return_value = [('existinguser', 'other@example.com')]
+        # Return list of dictionaries instead of tuples
+        cursor.fetchall.return_value = [
+            {'username': 'existinguser', 'email': 'other@example.com'}
+        ]
 
         auth_service = AuthService(mock_db)
 
@@ -97,7 +100,10 @@ class TestAuthService:
 
     def test_register_existing_email(self, mock_db):
         cursor = mock_db.cursor.return_value
-        cursor.fetchall.return_value = [('otheruser', 'existing@example.com')]
+        # Return list of dictionaries instead of tuples
+        cursor.fetchall.return_value = [
+            {'username': 'otheruser', 'email': 'existing@example.com'}
+        ]
 
         auth_service = AuthService(mock_db)
 

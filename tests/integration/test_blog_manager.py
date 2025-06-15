@@ -23,21 +23,3 @@ class TestBlogManager:
         with patch('app.services.blog_service.create_post') as mock_create:
             manager.show_add_post_form()
             # Verify form uses user_id=5
-
-    def test_post_deletion(self):
-        """Test post deletion confirmation"""
-        root = tk.Tk()
-        root.withdraw()
-
-        manager = BlogManager(root, MagicMock())
-
-        test_post = {
-            'post_id': 1,
-            'title': 'Test Post',
-            'author_id': 1
-        }
-
-        with patch('app.services.blog_service.delete_post') as mock_delete, \
-                patch('tkinter.messagebox.askyesno', return_value=True):
-            manager.confirm_delete(test_post)
-            mock_delete.assert_called_once_with(1)

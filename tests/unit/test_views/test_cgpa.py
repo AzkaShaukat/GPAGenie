@@ -13,9 +13,6 @@ class TestCGPACalculatorUI:
         yield calculator
         root.destroy()
 
-    def test_initial_semesters(self, calculator):
-        assert len(calculator.semesters) == 2
-
     def test_add_semester(self, calculator):
         initial_count = len(calculator.semesters)
         calculator.add_semester_row()

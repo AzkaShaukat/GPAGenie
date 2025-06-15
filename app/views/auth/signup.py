@@ -10,7 +10,7 @@ class SignupWindow:
         self.on_success = on_success_callback
 
         # Center the window on screen and set minimum size
-        self.center_window(850, 600)  # Width 800 x Height 600
+        self.center_window(850, 700)  # Width 800 x Height 600
         self.setup_ui()
 
     def center_window(self, width, height):
@@ -24,6 +24,7 @@ class SignupWindow:
         # Also configure grid weight for proper resizing
         self.parent.grid_rowconfigure(0, weight=1)
         self.parent.grid_columnconfigure(0, weight=1)
+
     def setup_ui(self):
         # Clear any existing widgets
         for widget in self.parent.winfo_children():
@@ -55,18 +56,6 @@ class SignupWindow:
             ("Password:", "password"),
             ("Confirm Password:", "confirm_password")
         ]
-        # Add admin registration checkbox (visible only if no admin exists)
-        self.is_admin_var = tk.BooleanVar(value=False)
-
-        # Check if admin exists in database
-        if not self.auth_service.admin_exists():
-            admin_check = ttk.Checkbutton(
-                form_frame,
-                text="Register as Administrator",
-                variable=self.is_admin_var,
-                style="TCheckbutton"
-            )
-            admin_check.grid(row=5, columnspan=2, pady=5)
 
         self.entries = {}
         self.error_labels = {}
@@ -86,6 +75,17 @@ class SignupWindow:
             error_label.grid(row=i * 2 + 1, column=1, columnspan=2, padx=5, pady=(0, 8), sticky="w")
             self.error_labels[field_name] = error_label
 
+        # Add admin registration checkbox (visible only if no admin exists)
+        self.is_admin_var = tk.BooleanVar(value=False)
+        if not self.auth_service.admin_exists():
+            admin_check = ttk.Checkbutton(
+                form_container,
+                text="Register as Administrator",
+                variable=self.is_admin_var,
+                style="TCheckbutton"
+            )
+            admin_check.grid(row=len(fields) * 2, columnspan=2, pady=5)
+
         # Password requirements
         requirements = tk.Label(
             form_container,
@@ -95,11 +95,11 @@ class SignupWindow:
             font=("Helvetica", 9),
             justify="left"
         )
-        requirements.grid(row=len(fields) * 2, column=1, pady=(0, 10), sticky="w")
+        requirements.grid(row=len(fields) * 2 + 1, column=1, pady=(0, 10), sticky="w")
 
         # Button frame
         button_frame = tk.Frame(form_container, bg="#f0f8ff")
-        button_frame.grid(row=len(fields) * 2 + 1, column=1, pady=15, sticky="e")
+        button_frame.grid(row=len(fields) * 2 + 2, column=1, pady=15, sticky="e")
 
         signup_btn = ttk.Button(
             button_frame,
@@ -109,7 +109,7 @@ class SignupWindow:
         )
         signup_btn.pack(side="right")
 
-        # Login link
+        # Login link (already have an account)
         login_frame = tk.Frame(self.main_frame, bg="#f0f8ff")
         login_frame.pack(pady=10)
 
@@ -138,11 +138,11 @@ class SignupWindow:
     def handle_signup(self):
         self.clear_errors()
 
-        full_name = self.name_entry.get()
-        username = self.username_entry.get()
-        email = self.email_entry.get()
-        password = self.password_entry.get()
-        confirm_password = self.confirm_password_entry.get()
+        full_name = self.entries['name'].get()
+        username = self.entries['username'].get()
+        email = self.entries['email'].get()
+        password = self.entries['password'].get()
+        confirm_password = self.entries['confirm_password'].get()
         is_admin = getattr(self, 'is_admin_var', False) and self.is_admin_var.get()
 
         # Validate password match
@@ -176,7 +176,6 @@ class SignupWindow:
                     self.error_labels['email'].config(text=error_msg)
             else:
                 messagebox.showerror("Error", error_msg)
-
 
     def show_login(self):
         from app.views.auth.login import LoginWindow
